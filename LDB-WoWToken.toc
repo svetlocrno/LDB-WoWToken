@@ -1,0 +1,15 @@
+## Interface: 60100
+
+## Title: LDB: WoW Token
+## Version: v1
+## Notes: Monitors and displays WoW Token price change history through any LDB display.
+## Author: Oleg "Rowaa[SR13]" Volkov
+
+## LoadOnDemand: 0
+## LoadWith: 
+## Dependencies: 
+## OptionalDeps: LibStub, LibDataBroker-1.1, LibQTip-1.0, SR13-TimeRecord
+
+## SavedVariables: 
+## SavedVariablesPerCharacter: 
+LDB-WoWToken.lua
