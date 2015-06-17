@@ -10,6 +10,6 @@
 ## Dependencies: 
 ## OptionalDeps: LibStub, LibDataBroker-1.1, LibQTip-1.0, SR13-TimeRecord
 
-## SavedVariables: 
+## SavedVariables: SV_LDBWoWToken
 ## SavedVariablesPerCharacter: 
 LDB-WoWToken.lua

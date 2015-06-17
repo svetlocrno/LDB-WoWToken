@@ -23,13 +23,22 @@ local dataobj = ldb:NewDataObject(addon_name, {
 
 local history_timestamp = {}
 local history_price = {}
+SV_LDBWoWToken = {
+   history_timestamp = history_timestamp,
+   history_price = history_price,
+}
 
 local current_price
+
 local event_frame = CreateFrame("Frame")
-event_frame:RegisterEvent("TOKEN_MARKET_PRICE_UPDATED")
-event_frame:SetScript("OnEvent", function(self, event, result)
-   if result ~= LE_TOKEN_RESULT_SUCCESS then new_price = nil end
-   local new_price = GetCurrentMarketPrice()
+
+local function OnTokenPriceUpdate(self, event, result)
+   local new_price
+   if event == "_MANUAL_UPDATE" then
+      new_price = result
+   else
+      if result ~= LE_TOKEN_RESULT_SUCCESS then new_price = nil else new_price = GetCurrentMarketPrice() end
+   end
    if new_price == current_price then return end
    current_price = new_price
    if current_price then
@@ -39,7 +48,29 @@ event_frame:SetScript("OnEvent", function(self, event, result)
       history_timestamp[history_cutout] = nil
       history_price[history_cutout] = nil
    else
-      dataobj.text = ""
+      dataobj.text = "N/A"
+   end
+end
+
+local function OnLoaded(self)
+   history_timestamp = SV_LDBWoWToken.history_timestamp
+   history_price = SV_LDBWoWToken.history_price
+   local pre_load_price = current_price
+   current_price = history_price[1]
+   OnTokenPriceUpdate(self, "_MANUAL_UPDATE", pre_load_price)
+   event_frame:SetScript("OnEvent", OnTokenPriceUpdate)
+   event_frame:UnregisterEvent("ADDON_LOADED")
+end
+
+event_frame:RegisterEvent("TOKEN_MARKET_PRICE_UPDATED")
+event_frame:RegisterEvent("ADDON_LOADED")
+event_frame:SetScript("OnEvent", function(self, event, result)
+   if event == "ADDON_LOADED" then
+      if result == addon_name then
+         OnLoaded(self)
+      end
+   else
+      OnTokenPriceUpdate(self, event, result)
    end
 end)
 
