@@ -39,14 +39,18 @@ local function OnTokenPriceUpdate(self, event, result)
    else
       if result ~= LE_TOKEN_RESULT_SUCCESS then new_price = nil else new_price = GetCurrentMarketPrice() end
    end
+
    if new_price == current_price then return end
+
    current_price = new_price
    if current_price then
       dataobj.text = GetMoneyString(current_price, true)
-      tinsert(history_timestamp, 1, time())
-      tinsert(history_price, 1, current_price)
-      history_timestamp[history_cutout] = nil
-      history_price[history_cutout] = nil
+      if current_price ~= history_price[1] then
+         tinsert(history_timestamp, 1, time())
+         tinsert(history_price, 1, current_price)
+         history_timestamp[history_cutout] = nil
+         history_price[history_cutout] = nil
+      end
    else
       dataobj.text = "N/A"
    end
