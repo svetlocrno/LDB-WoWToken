@@ -8,7 +8,7 @@
 ## LoadOnDemand: 0
 ## LoadWith: 
 ## Dependencies: 
-## OptionalDeps: LibStub, LibDataBroker-1.1, LibQTip-1.0, SR13-TimeRecord
+## OptionalDeps: LibStub, LibDataBroker-1.1, LibQTip-1.0, Bagnon, Titan, SR13-TimeRecord
 
 ## SavedVariables: SV_LDBWoWToken
 ## SavedVariablesPerCharacter: 
