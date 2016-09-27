@@ -8,6 +8,8 @@ local LE_TOKEN_RESULT_SUCCESS = LE_TOKEN_RESULT_SUCCESS
 local time = time
 local date = date
 local tinsert = table.insert
+local RED_FONT_COLOR_CODE = RED_FONT_COLOR_CODE
+local GREEN_FONT_COLOR_CODE = GREEN_FONT_COLOR_CODE
 
 local history_length = 10
 local history_cutout = history_length + 2
@@ -29,8 +31,22 @@ SV_LDBWoWToken = {
 }
 
 local current_price
+local current_h2
 
 local event_frame = CreateFrame("Frame")
+
+local function DiffString(now, before)
+   local diff = now - before
+   local sign
+   if diff < 0 then
+      sign = GREEN_FONT_COLOR_CODE .. "-"
+      diff = -diff
+   else
+      sign = RED_FONT_COLOR_CODE .. "+"
+   end
+   diff = sign .. GetMoneyString(diff, true)
+   return diff
+end
 
 local function OnTokenPriceUpdate(self, event, result)
    local new_price
@@ -40,20 +56,25 @@ local function OnTokenPriceUpdate(self, event, result)
       if result ~= LE_TOKEN_RESULT_SUCCESS then new_price = nil else new_price = GetCurrentMarketPrice() end
    end
 
-   if new_price == current_price then return end
+   if new_price == current_price and current_h2 == history_price[2] then return end
 
    current_price = new_price
    if current_price then
-      dataobj.text = GetMoneyString(current_price, true)
       if current_price ~= history_price[1] then
          tinsert(history_timestamp, 1, time())
          tinsert(history_price, 1, current_price)
          history_timestamp[history_cutout] = nil
          history_price[history_cutout] = nil
       end
+      local diff
+      if history_price[2] then
+         diff = DiffString(history_price[1], history_price[2])
+      end
+      dataobj.text = GetMoneyString(current_price, true) .. " " .. (diff or "")
    else
       dataobj.text = "N/A"
    end
+   current_h2 = history_price[2]
 end
 
 local function OnLoaded(self)
@@ -64,6 +85,7 @@ local function OnLoaded(self)
    OnTokenPriceUpdate(self, "_MANUAL_UPDATE", pre_load_price)
    event_frame:SetScript("OnEvent", OnTokenPriceUpdate)
    event_frame:UnregisterEvent("ADDON_LOADED")
+   After(1, UpdateMarketPrice)
 end
 
 event_frame:RegisterEvent("TOKEN_MARKET_PRICE_UPDATED")
@@ -95,15 +117,7 @@ function dataobj:OnEnter()
       if price then
          local older_price = history_price[idx + 1]
          if older_price then
-            diff = price - older_price
-            local sign
-            if diff < 0 then
-               sign = "-"
-               diff = -diff
-            else
-               sign = "+"
-            end
-            diff = sign .. GetMoneyString(diff, true)
+            diff = DiffString(price, older_price)
          end
          price = GetMoneyString(price, true) or ""
          tooltip:AddLine(date("%Y/%m/%d (%a) %H:%M", history_timestamp[idx]), price, diff or "")
