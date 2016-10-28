@@ -1,4 +1,4 @@
-LDB: WoW Token, v3
+LDB: WoW Token, v5
 
 * http://www.curse.com/addons/wow/ldb-wow-token
 
@@ -7,6 +7,15 @@ This addon monitors and displays changes of WoW Token price. It will display cur
 It is an LDB module: you will need an LDB display addon to use it - like Titan Panel, Bazooka, Bagnon (yes, it does have LDB display on bag frames) or any other.
 
 == Change log ==
+2016-10-28 v5
+* LibToast output.
+* Chat output.
+* 7.1 TOC update.
+
+2016-09-27 v4
+* Diff with previous price is now colored: green for decrease and red for increase.
+* 7.0 TOC update.
+
 2015-11-13 v3
 * 6.2 TOC update.
 
