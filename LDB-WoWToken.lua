@@ -45,16 +45,19 @@ local current_h2
 local event_frame = CreateFrame("Frame")
 
 local function DiffString(now, before)
+   local swap = SV_LDBWoWToken.diff_colors == "seller"
+
    local diff = now - before
-   local sign
+   local color, sign
    if diff < 0 then
-      sign = GREEN_FONT_COLOR_CODE .. "-"
+      color = swap and RED_FONT_COLOR_CODE or GREEN_FONT_COLOR_CODE
+      sign = "-"
       diff = -diff
    else
-      sign = RED_FONT_COLOR_CODE .. "+"
+      color = swap and GREEN_FONT_COLOR_CODE or RED_FONT_COLOR_CODE
+      sign = "+"
    end
-   diff = sign .. GetMoneyString(diff, true)
-   return diff
+   return color .. sign .. GetMoneyString(diff, true)
 end
 
 local function OnTokenPriceUpdate(self, event, result)
