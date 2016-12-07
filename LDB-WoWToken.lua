@@ -84,8 +84,8 @@ local function OnTokenPriceUpdate(self, event, result)
       end
       local money_string = GetMoneyString(current_price, true)
       dataobj.text = money_string .. " " .. (diff or "")
-      if LibToast then LibToast:Spawn(addon_name, money_string, diff) end
-      print(addon_name .. ": " .. money_string .. " " .. (diff or ""))
+      if LibToast and SV_LDBWoWToken.diff_libtoast ~= false then LibToast:Spawn(addon_name, money_string, diff) end
+      if SV_LDBWoWToken.diff_chat ~= false then print(addon_name .. ": " .. money_string .. " " .. (diff or "")) end
    else
       dataobj.text = "N/A"
    end
