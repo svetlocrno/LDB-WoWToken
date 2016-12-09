@@ -1,26 +1,46 @@
-LDB: WoW Token, v5
+LDB: WoW Token, v7
 
 * http://www.curse.com/addons/wow/ldb-wow-token
 
 This addon monitors and displays changes of WoW Token price. It will display current price and history for last ten known changes, showing price itself, time and difference with previous price.
 
-It is an LDB module: you will need an LDB display addon to use it - like Titan Panel, Bazooka, Bagnon (yes, it does have LDB display on bag frames) or any other.
+To see LDB element you will need an LDB display addon to use it - like Titan Panel, Bazooka, Bagnon (yes, it does have LDB display on bag frames) or any other.
 
-== Change log ==
-2016-10-28 v5
-* LibToast output.
-* Chat output.
-* 7.1 TOC update.
+Since v5 all changes are also printed to chat and shown in LibToast if you have it installed.
 
-2016-09-27 v4
-* Diff with previous price is now colored: green for decrease and red for increase.
-* 7.0 TOC update.
+# Settings
+Since v7 some settings can be altered. It is not expected that you will need those changed too often, so there's no UI - just type commands into chat.
 
-2015-11-13 v3
-* 6.2 TOC update.
+* `/run SV_LDBWoWToken.diff_colors = "seller"`
+ - swap green and red color in diffs. Raise will be in green, since that's what seller would want.
+* `/run SV_LDBWoWToken.diff_libtoast = false`
+ - disable LibToast output.
+* `/run SV_LDBWoWToken.diff_chat = false`
+ - disable chat output.
 
-2015-06-18 v2
-* History is now saved on logout and is persistent between sessions.
+Settings can be reset back to default by setting it to `nil`. E.g.: `/run SV_LDBWoWToken.diff_colors = nil` - go back to default, "buyer" colors.
 
-2015-06-11 v1
-* Initial implementation.
+# Change log
+* 2016-12-09 v7
+ * Add settings to swap diff colors, disable chat print and disable LibToast output.
+
+* 2016-11-04 v6
+ * It took me several months to notice that I set up Curse packager incorrectly. Fixed.
+
+* 2016-10-28 v5
+ * LibToast output.
+ * Chat output.
+ * 7.1 TOC update.
+
+* 2016-09-27 v4
+ * Diff with previous price is now colored: green for decrease and red for increase.
+ * 7.0 TOC update.
+
+* 2015-11-13 v3
+ * 6.2 TOC update.
+
+* 2015-06-18 v2
+ * History is now saved on logout and is persistent between sessions.
+
+* 2015-06-11 v1
+ * Initial implementation.
