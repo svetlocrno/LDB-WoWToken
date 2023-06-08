@@ -100,7 +100,8 @@ local function OnLoaded(self)
    OnTokenPriceUpdate(self, "_MANUAL_UPDATE", pre_load_price)
    event_frame:SetScript("OnEvent", OnTokenPriceUpdate)
    event_frame:UnregisterEvent("ADDON_LOADED")
-   After(1, UpdateMarketPrice)
+   -- Literally WTF? After wouldn't take built-in C_WowTokenPublic.UpdateMarketPrice as argument. Is that a quirk of new C-side After?
+   After(1, function() UpdateMarketPrice() end)
 end
 
 event_frame:RegisterEvent("TOKEN_MARKET_PRICE_UPDATED")
