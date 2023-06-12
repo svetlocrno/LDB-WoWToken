@@ -1,4 +1,5 @@
 local a_name, a_env = ...
+if not a_env.load_this then return end
 
 local GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
 local UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice

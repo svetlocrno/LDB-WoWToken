@@ -16,4 +16,7 @@
 
 ## SavedVariables: SV_LDBWoWToken
 ## SavedVariablesPerCharacter: 
+
++DEVEL.lua
+
 LDB-WoWToken.lua
