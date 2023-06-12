@@ -1,7 +1,7 @@
-## Interface: 70100
+## Interface: 100100
 
 ## Title: LDB: WoW Token
-## Version: v7
+## Version: v8
 ## Notes: Monitors and displays WoW Token price change history through any LDB display.
 ## Author: Oleg "Rowaa[SR13]" Volkov
 

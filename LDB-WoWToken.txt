@@ -1,4 +1,4 @@
-LDB: WoW Token, v7
+LDB: WoW Token, v8
 
 * http://www.curse.com/addons/wow/ldb-wow-token
 
@@ -21,6 +21,9 @@ Since v7 some settings can be altered. It is not expected that you will need tho
 Settings can be reset back to default by setting it to `nil`. E.g.: `/run SV_LDBWoWToken.diff_colors = nil` - go back to default, "buyer" colors.
 
 # Change log
+* 2023-06-12 v8
+ * Fix incompatibility with new C_Timer.After in Dragonflight and update TOC to 10.1.
+
 * 2016-12-09 v7
  * Add settings to swap diff colors, disable chat print and disable LibToast output.
 
