@@ -5,6 +5,10 @@
 ## Notes: Monitors and displays WoW Token price change history through any LDB display.
 ## Author: Oleg "Rowaa[SR13]" Volkov
 
+## X-License: All Rights Reserved.
+## X-Curse-Project-ID: 92565
+## X-WoWI-ID:
+
 ## LoadOnDemand: 0
 ## LoadWith: 
 ## Dependencies: 
