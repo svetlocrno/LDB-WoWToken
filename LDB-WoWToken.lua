@@ -1,4 +1,4 @@
-local addon_name, addon_env = ...
+local a_name, a_env = ...
 
 local GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
 local UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice
@@ -18,16 +18,16 @@ local qtip = LibStub("LibQTip-1.0")
 local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 local LibToast = LibStub("LibToast-1.0", 1)
 
-local dataobj = ldb:NewDataObject(addon_name, {
-   label = addon_name,
+local dataobj = ldb:NewDataObject(a_name, {
+   label = a_name,
    type = "data source",
    icon = "Interface\\Icons\\WoW_Token01",
 })
 
 if LibToast then
    -- /run LibStub("LibToast-1.0"):Spawn("LDB-WoWToken", 123, 456)
-   LibToast:Register(addon_name, function(toast, new_price, diff)
-      toast:SetFormattedTitle("%s", addon_name)
+   LibToast:Register(a_name, function(toast, new_price, diff)
+      toast:SetFormattedTitle("%s", a_name)
       toast:SetFormattedText("%s %s", new_price, (diff or ""))
    end)
 end
@@ -84,8 +84,8 @@ local function OnTokenPriceUpdate(self, event, result)
       end
       local money_string = GetMoneyString(current_price, true)
       dataobj.text = money_string .. " " .. (diff or "")
-      if LibToast and SV_LDBWoWToken.diff_libtoast ~= false then LibToast:Spawn(addon_name, money_string, diff) end
-      if SV_LDBWoWToken.diff_chat ~= false then print(addon_name .. ": " .. money_string .. " " .. (diff or "")) end
+      if LibToast and SV_LDBWoWToken.diff_libtoast ~= false then LibToast:Spawn(a_name, money_string, diff) end
+      if SV_LDBWoWToken.diff_chat ~= false then print(a_name .. ": " .. money_string .. " " .. (diff or "")) end
    else
       dataobj.text = "N/A"
    end
@@ -108,7 +108,7 @@ event_frame:RegisterEvent("TOKEN_MARKET_PRICE_UPDATED")
 event_frame:RegisterEvent("ADDON_LOADED")
 event_frame:SetScript("OnEvent", function(self, event, result)
    if event == "ADDON_LOADED" then
-      if result == addon_name then
+      if result == a_name then
          OnLoaded(self)
       end
    else
@@ -125,7 +125,7 @@ After(1, UpatePriceAndReschedule)
 local tooltip
 
 function dataobj:OnEnter()
-   tooltip = qtip:Acquire(addon_name, 3, "LEFT", "RIGHT", "RIGHT")
+   tooltip = qtip:Acquire(a_name, 3, "LEFT", "RIGHT", "RIGHT")
    tooltip:AddHeader("Time", "Price", "Diff")
    for idx = 1, history_length do
       local price = history_price[idx]
