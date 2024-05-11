@@ -1,6 +1,8 @@
 local a_name, a_env = ...
 if not a_env.load_this then return end
 
+local sv_name = "SV_LDBWoWToken"
+
 local GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
 local UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice
 local GetMoneyString = GetMoneyString
@@ -33,12 +35,13 @@ if LibToast then
    end)
 end
 
-local history_timestamp = {}
-local history_price = {}
-SV_LDBWoWToken = {
-   history_timestamp = history_timestamp,
-   history_price = history_price,
-}
+local function InitSV(sv_name)
+   if not _G[sv_name]                   then _G[sv_name] = {} end
+
+   if not _G[sv_name].history_timestamp then _G[sv_name].history_timestamp = {} end
+   if not _G[sv_name].history_price     then _G[sv_name].history_price = {} end
+end
+InitSV(sv_name)
 
 local current_price
 local current_h2
@@ -62,6 +65,10 @@ local function DiffString(now, before)
 end
 
 local function OnTokenPriceUpdate(self, event, result)
+   local sv = _G[sv_name]
+   local history_timestamp = sv.history_timestamp
+   local history_price     = sv.history_price
+
    local new_price
    if event == "_MANUAL_UPDATE" then
       new_price = result
@@ -94,8 +101,9 @@ local function OnTokenPriceUpdate(self, event, result)
 end
 
 local function OnLoaded(self)
-   history_timestamp = SV_LDBWoWToken.history_timestamp
-   history_price = SV_LDBWoWToken.history_price
+   local sv = _G[sv_name]
+   local history_price     = sv.history_price
+
    local pre_load_price = current_price
    current_price = history_price[1]
    OnTokenPriceUpdate(self, "_MANUAL_UPDATE", pre_load_price)
@@ -126,6 +134,10 @@ After(1, UpatePriceAndReschedule)
 local tooltip
 
 function dataobj:OnEnter()
+   local sv = _G[sv_name]
+   local history_timestamp = sv.history_timestamp
+   local history_price     = sv.history_price
+
    tooltip = qtip:Acquire(a_name, 3, "LEFT", "RIGHT", "RIGHT")
    tooltip:AddHeader("Time", "Price", "Diff")
    for idx = 1, history_length do
