@@ -1,4 +1,4 @@
-## Interface: 100105
+## Interface: 100207
 
 ## Title: LDB: WoW Token
 ## Version: v8
@@ -13,7 +13,7 @@
 ## LoadOnDemand: 0
 ## LoadWith: 
 ## Dependencies: 
-## OptionalDeps: LibStub, LibDataBroker-1.1, LibQTip-1.0, Bagnon, Titan, LibToast-1.0, SR13-TimeRecord, SR13-+DEVEL
+## OptionalDeps: LibStub, LibDataBroker-1.1, LibQTip-1.0, Bagnon, Titan, Bazooka, LibToast-1.0, SR13-TimeRecord, SR13-+DEVEL
 
 ## SavedVariables: SV_LDBWoWToken
 ## SavedVariablesPerCharacter: 
