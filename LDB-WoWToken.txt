@@ -21,6 +21,10 @@ Since v7 some settings can be altered. It is not expected that you will need tho
 Settings can be reset back to default by setting it to `nil`. E.g.: `/run SV_LDBWoWToken.diff_colors = nil` - go back to default, "buyer" colors.
 
 # Change log
+* 2024-05-16 v9
+ * Assorted internal fixes, improvements and updates for recent WoW version.
+ * 10.2.7 TOC update.
+
 * 2023-06-12 v8
  * Fix incompatibility with new C_Timer.After in Dragonflight and update TOC to 10.1.
 
